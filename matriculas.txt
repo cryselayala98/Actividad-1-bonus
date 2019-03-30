@@ -1,0 +1,1 @@
+<h3>*****NUEVA PREMATRICULA*****</h3><strong>Id Curso: </strong>3<br><strong>Curso Preinscrito: </strong>Desarrollo de un Software ERP por medio de implementacion de vistas javaFX<br><strong>Numero de horas: </strong>30 horas<br><strong>Valor: </strong>$45000<br><strong>Nombre del estudiante: </strong>crisel<br><strong>Identificacion del Estudiante: </strong>12345
