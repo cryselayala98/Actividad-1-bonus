@@ -1,14 +1,16 @@
 # Actividad 1 
 
+Registrarse en un curso desde la consola.
+
 ### Para instalar librerías: 
 
 ```
 $ npm install
 ```
 
-### Para ejecutar: 
+### Ejecutando
 
-Desde el archivo base del proyecto
+Desde la ruta base del proyecto:
 
 - Para ver lista de cursos
 
