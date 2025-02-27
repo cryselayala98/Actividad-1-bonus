@@ -1,0 +1,418 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Proyecto Api",
+    "description" : "Documentación del proyecto Api",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/Criselayala/ApiDoc/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "http://localhost:8080/api",
+    "description" : "Generated server url"
+  } ],
+  "tags" : [ {
+    "name" : "Call history",
+    "description" : "Call history endpoints"
+  }, {
+    "name" : "Operations",
+    "description" : "Endpoints for managing operations"
+  } ],
+  "paths" : {
+    "/process/sum" : {
+      "get" : {
+        "tags" : [ "Operations" ],
+        "summary" : "Sum of two numbers",
+        "description" : "Given two numbers, add them together and add a percentage from an external supplier to their total.",
+        "operationId" : "sum",
+        "parameters" : [ {
+          "name" : "num1",
+          "in" : "query",
+          "description" : "numerical value",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "example" : 5
+        }, {
+          "name" : "num2",
+          "in" : "query",
+          "description" : "numerical value",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "example" : 5
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "History Obtained",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ObjectOperation"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Unsupported data type",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorSkeletonExample"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Exceeds the limit of requests per minute",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ObjectOperation"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Server error",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorSkeletonExample"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "The percentage value could not be obtained",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorSkeletonExample"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/history" : {
+      "get" : {
+        "tags" : [ "Call history" ],
+        "summary" : "History",
+        "description" : "Given pagination parameters, List the request history",
+        "operationId" : "getAllHistoryCalls",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Zero-based page index (0..N)",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "description" : "The size of the page to be returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "minimum" : 1,
+            "type" : "integer",
+            "default" : 10
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "History Obtained",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PageHistoryCall"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Unsupported data type",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorSkeletonExample"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Exceeds the limit of requests per minute",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PageHistoryCall"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Server error",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorSkeletonExample"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "The percentage value could not be obtained",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorSkeletonExample"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ErrorSkeletonExample" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string",
+            "description" : "Error message",
+            "example" : "Any error message"
+          },
+          "trace" : {
+            "type" : "string",
+            "description" : "Error trace",
+            "example" : "Any error trace"
+          }
+        },
+        "description" : "Example of error response"
+      },
+      "ObjectOperation" : {
+        "type" : "object",
+        "properties" : {
+          "num1" : {
+            "type" : "integer",
+            "description" : "numerical value",
+            "format" : "int32",
+            "example" : 45
+          },
+          "num2" : {
+            "type" : "integer",
+            "description" : "numerical value",
+            "format" : "int32",
+            "example" : 55
+          },
+          "res" : {
+            "type" : "number",
+            "description" : "numerical value",
+            "format" : "double",
+            "example" : 110
+          }
+        },
+        "description" : "Object of the result of the operation"
+      },
+      "HistoryCall" : {
+        "required" : [ "method", "response", "timeCreated", "url" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "History id",
+            "format" : "int64",
+            "example" : 1
+          },
+          "timeCreated" : {
+            "type" : "string",
+            "description" : "Timestamp",
+            "format" : "date-time"
+          },
+          "url" : {
+            "type" : "string",
+            "description" : "Uru invoked",
+            "example" : "http://localhost:8080/hellofriends"
+          },
+          "method" : {
+            "type" : "string",
+            "description" : "method",
+            "example" : "GET"
+          },
+          "ipFrom" : {
+            "type" : "string",
+            "description" : "ip from"
+          },
+          "params" : {
+            "type" : "string",
+            "description" : "params",
+            "example" : "num1=45&num2=5"
+          },
+          "response" : {
+            "$ref" : "#/components/schemas/Response"
+          }
+        },
+        "description" : "Object history"
+      },
+      "PageHistoryCall" : {
+        "type" : "object",
+        "properties" : {
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "pageable" : {
+            "$ref" : "#/components/schemas/PageableObject"
+          },
+          "numberOfElements" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "first" : {
+            "type" : "boolean"
+          },
+          "last" : {
+            "type" : "boolean"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/HistoryCall"
+            }
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "sort" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SortObject"
+            }
+          },
+          "empty" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "PageableObject" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "unpaged" : {
+            "type" : "boolean"
+          },
+          "paged" : {
+            "type" : "boolean"
+          },
+          "pageSize" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sort" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SortObject"
+            }
+          }
+        }
+      },
+      "Response" : {
+        "required" : [ "code" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "Response id",
+            "format" : "int64",
+            "example" : 1
+          },
+          "code" : {
+            "type" : "integer",
+            "description" : "code HTTP",
+            "format" : "int32",
+            "example" : 418
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Message in case of error",
+            "example" : "418 I'm a teapot :)"
+          },
+          "trace" : {
+            "type" : "string",
+            "description" : "Message trace in case of error",
+            "example" : "java.lang.nullpointerexception"
+          }
+        },
+        "description" : "Response"
+      },
+      "SortObject" : {
+        "type" : "object",
+        "properties" : {
+          "direction" : {
+            "type" : "string"
+          },
+          "nullHandling" : {
+            "type" : "string"
+          },
+          "ascending" : {
+            "type" : "boolean"
+          },
+          "property" : {
+            "type" : "string"
+          },
+          "ignoreCase" : {
+            "type" : "boolean"
+          }
+        }
+      }
+    }
+  }
+}
